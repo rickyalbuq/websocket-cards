@@ -7,11 +7,16 @@ export interface Player {
 
 export interface Room {
   room: number;
-  createdAt: Date;
+  createdAt: string;
   isPrivate: boolean;
   maxMatches: number;
   currentMatch: number;
   messages: Message[];
+}
+
+export interface GeneralData {
+  rooms: Room[];
+  players: Player[];
 }
 
 export interface Message {
@@ -45,6 +50,10 @@ export interface CreateRoomData {
   isPrivate: boolean;
   maxMatches: number;
   username: string;
+}
+
+export interface GetRoomsData extends Room {
+  players: number;
 }
 
 export interface DeleteRoomData {
