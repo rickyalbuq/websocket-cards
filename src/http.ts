@@ -14,4 +14,4 @@ const io = new Server(serverHttp, {
   }
 });
 
-export { serverHttp, io };
+export { io, serverHttp };

@@ -1,4 +1,10 @@
 import { serverHttp } from "./http";
+import sequelize from './database';
+import './models/index';
 import "./websocket";
 
-serverHttp.listen(3001, () => console.log("Server is running on PORT 3001"));
+sequelize.sync({ force: true })
+.then(() =>{
+  serverHttp.listen(3001);
+})
+.catch((err) => console.error(err));
