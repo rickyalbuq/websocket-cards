@@ -1,17 +1,16 @@
-import { Socket } from "socket.io";
 import * as I from "../interfaces";
+import { Socket } from "socket.io";
+import { Message } from "../models";
 
-let rooms: I.Room[] = [];
+async function sendMessage(data: I.MessageData, socket: Socket) {
+  const message = await Message.create({
+    "username": data.username,
+    "text": data.text,
+    "roomId": data.roomId
+  });
 
-function sendMessage(data: I.MessageData, socket: Socket) {
-  const roomAlreadyExists = rooms.find(
-    (item) => item.room === data.room
-  );
-
-  if(roomAlreadyExists) {
-    const i = rooms.indexOf(roomAlreadyExists);
-
-    socket.to(`${data.room}`).emit("message", JSON.stringify(
+  if(message) {
+    socket.to(`${data.roomId}`).emit("message", JSON.stringify(
       {
         "payload": {
           "text": data.text,
@@ -19,22 +18,14 @@ function sendMessage(data: I.MessageData, socket: Socket) {
         }
       }
     ));
-
-    socket.emit("message", JSON.stringify(
-      {
-        "payload": {
-          "message": "Message sended successfully"
-        }
-      })
-    );
   } else {
     socket.emit("message", JSON.stringify(
       {
         "payload": {
-          "message": "Room does not exists"
+          "message": "Message not sended"
         }
-      })
-    );
+      }
+    ));
   }
 }
 
