@@ -1,7 +1,14 @@
 import sequelize from '../database';
-import { DataTypes, Model } from 'sequelize';
+import * as I from "../interfaces";
+import { DataTypes, InferAttributes, InferCreationAttributes, Model } from 'sequelize';
 
-class Room extends Model {};
+class Room extends Model<InferAttributes<Room>, InferCreationAttributes<Room>> {
+  declare roomId: number;
+  declare isPrivate: boolean;
+  declare maxMatches: number | null;
+  declare currentMatch: number | null;
+  declare createdAt: Date | null;
+};
 
 Room.init(
   {
@@ -21,6 +28,9 @@ Room.init(
     currentMatch: {
       type: DataTypes.INTEGER,
       defaultValue: 0
+    },
+    createdAt: {
+      type: DataTypes.DATE
     }
   }, {
     sequelize,

@@ -7,8 +7,8 @@ Room.hasMany(Player, {
   onDelete: 'CASCADE'
 });
 
-Player.hasMany(Message, {
-  foreignKey: 'playerId',
+Room.hasMany(Message, {
+  foreignKey: 'roomId',
   onDelete: 'CASCADE'
 });
 

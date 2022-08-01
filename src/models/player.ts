@@ -1,7 +1,12 @@
 import sequelize from '../database';
-import { DataTypes, Model } from 'sequelize';
+import { DataTypes, ForeignKey, InferAttributes, InferCreationAttributes, Model } from 'sequelize';
 
-class Player extends Model {};
+class Player extends Model<InferAttributes<Player>, InferCreationAttributes<Player>> {
+  declare playerId: number;
+  declare username: boolean;
+  declare victories: number | null;
+  declare roomId: ForeignKey<number>;
+};
 
 Player.init(
   {

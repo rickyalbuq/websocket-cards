@@ -1,7 +1,12 @@
 import sequelize from '../database';
-import { DataTypes, Model } from 'sequelize';
+import { DataTypes, ForeignKey, InferAttributes, InferCreationAttributes, Model } from 'sequelize';
 
-class Message extends Model {};
+class Message extends Model<InferAttributes<Message>, InferCreationAttributes<Message>> {
+  declare messageId: string;
+  declare username: string;
+  declare text: string;
+  declare roomId: ForeignKey<number>;
+};
 
 Message.init(
   {
@@ -10,6 +15,9 @@ Message.init(
       allowNull: false,
       primaryKey: true,
       unique:true
+    },
+    username: {
+      type: DataTypes.STRING
     },
     text: {
       type: DataTypes.STRING

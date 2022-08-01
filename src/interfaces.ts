@@ -2,16 +2,19 @@ export interface Player {
   playerId: string;
   username: string;
   victories: number;
-  room: number;
+  roomId: number;
 }
 
 export interface Room {
-  room: number;
-  createdAt: string;
+  roomId: number;
+  createdAt: Date | null;
   isPrivate: boolean;
   maxMatches: number;
   currentMatch: number;
-  messages: Message[];
+}
+
+export interface GetRoomById {
+  roomId: number;
 }
 
 export interface GeneralData {
@@ -25,31 +28,30 @@ export interface Message {
 }
 
 export interface MessageData {
-  room: number;
+  roomId: number;
   text: string;
   username: string;
 }
 
 export interface GetMessageData {
-  room: number;
+  roomId: number;
 }
 
 export interface ConnectData {
-  room: number;
+  roomId: number;
   username: string;
 }
 
 export interface DisconnectionData {
-  room: number;
+  roomId: number;
   playerId: string;
   username: string;
 }
 
 export interface CreateRoomData {
-  room: number;
+  roomId: number;
   isPrivate: boolean;
   maxMatches: number;
-  username: string;
 }
 
 export interface GetRoomsData extends Room {
@@ -57,5 +59,5 @@ export interface GetRoomsData extends Room {
 }
 
 export interface DeleteRoomData {
-  room: number;
+  roomId: number;
 }
