@@ -3,7 +3,7 @@ import { DataTypes, ForeignKey, InferAttributes, InferCreationAttributes, Model 
 
 class Player extends Model<InferAttributes<Player>, InferCreationAttributes<Player>> {
   declare playerId: number;
-  declare username: boolean;
+  declare username: string;
   declare victories: number | null;
   declare roomId: ForeignKey<number>;
 };

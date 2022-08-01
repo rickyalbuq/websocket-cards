@@ -5,7 +5,7 @@ import { DataTypes, InferAttributes, InferCreationAttributes, Model } from 'sequ
 class Room extends Model<InferAttributes<Room>, InferCreationAttributes<Room>> {
   declare roomId: number;
   declare isPrivate: boolean;
-  declare maxMatches: number | null;
+  declare minMatches: number | null;
   declare currentMatch: number | null;
   declare createdAt: Date | null;
 };
@@ -21,7 +21,7 @@ Room.init(
       type: DataTypes.BOOLEAN,
       defaultValue: false
     },
-    maxMatches: {
+    minMatches: {
       type: DataTypes.INTEGER,
       defaultValue: 0
     },

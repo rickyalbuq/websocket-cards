@@ -21,7 +21,7 @@ async function connectPlayers(data: I.ConnectData, socket: Socket) {
   } else {
     try {
       const newPlayer = await Player.create({
-        "playerId": socket.id,
+        "playerId": Number(socket.id),
         "username": data.username,
         "roomId": data.roomId
       });

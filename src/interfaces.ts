@@ -9,7 +9,7 @@ export interface Room {
   roomId: number;
   createdAt: Date | null;
   isPrivate: boolean;
-  maxMatches: number;
+  minMatches: number;
   currentMatch: number;
 }
 
@@ -51,7 +51,7 @@ export interface DisconnectionData {
 export interface CreateRoomData {
   roomId: number;
   isPrivate: boolean;
-  maxMatches: number;
+  minMatches: number;
 }
 
 export interface GetRoomsData extends Room {

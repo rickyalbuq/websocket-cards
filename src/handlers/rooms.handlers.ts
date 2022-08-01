@@ -17,7 +17,7 @@ async function createRoom(data: I.CreateRoomData, socket: Socket) {
     const newRoom = await Room.create({
       roomId: data.roomId,
       isPrivate: data.isPrivate,
-      maxMatches: data.maxMatches
+      minMatches: data.minMatches
     });
 
     socket.emit("createRoom", JSON.stringify(
@@ -67,7 +67,7 @@ async function getRoomById(data: I.GetRoomById, socket: Socket) {
         "payload": {
           "roomId": room.roomId,
           "isPrivate": room.isPrivate,
-          "maxMatches": room.maxMatches ||  10,
+          "minMatches": room.minMatches ||  10,
           "currentMatch": room.currentMatch || 1,
           "createdAt": room.createdAt,
           "playerId": socket.id,
@@ -99,7 +99,7 @@ async function getPublicRooms(socket: Socket) {
           payload.push({
             "roomId": room.roomId,
             "isPrivate": room.isPrivate,
-            "maxMatches": room.maxMatches ||  10,
+            "minMatches": room.minMatches ||  10,
             "currentMatch": room.currentMatch || 1,
             "createdAt": room.createdAt,
             "players": players.length
