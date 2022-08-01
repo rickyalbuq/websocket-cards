@@ -6,35 +6,36 @@ import {
   deleteRoom,
   disconnectPlayer,
   getPublicRooms,
+  getRoomById,
   sendMessage
 } from "./handlers";
 
-io.on("connection", socket => {
-  // Player Connect
-  socket.on("connectPlayer", (data: I.ConnectData) => {
-    connectPlayers(data, socket)
+io.on("connection", (socket) => {
+  socket.on("connectPlayer", (data: string) => {
+    const payload: I.ConnectData = JSON.parse(data);
+    return connectPlayers(payload, socket);
   });
-  // Player Disconnect
-  socket.on("disconnectPlayer", (data: I.DisconnectionData) => {
-    disconnectPlayer(data, socket)
+  socket.on("disconnectPlayer", (data: string) => {
+    const payload: I.DisconnectionData = JSON.parse(data);
+    return disconnectPlayer(payload, socket);
   });
 
-  // Create Room and Connect
   socket.on("createRoom", (data: string) => {
     const payload: I.CreateRoomData = JSON.parse(data);
     return createRoom(payload, socket);
   });
-  // Get All Public Rooms
-  socket.on("getRooms", () => {
-    getPublicRooms(socket)
+  socket.on("getRoomById", (data: string) => {
+    const payload: I.GetRoomById = JSON.parse(data);
+    return getRoomById(payload, socket);
   });
-  // Delete Room and Disconnect
+  socket.on("getRooms", () => {
+    return getPublicRooms(socket);
+  });
   socket.on("deleteRoom", (data: string) => {
     const payload: I.DeleteRoomData = JSON.parse(data);
     return deleteRoom(payload, socket);
   });
 
-  // Send Message
   socket.on("message", (data: string) => {
     const payload: I.MessageData = JSON.parse(data);
     return sendMessage(payload, socket);
